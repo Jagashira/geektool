@@ -60,7 +60,7 @@
 		<key>FontSize</key>
 		<real>14</real>
 		<key>GeekletFrame</key>
-		<string>{{160, 250}, {430, 355}}</string>
+		<string>{{160, 250}, {500, 355}}</string>
 		<key>HasShadow</key>
 		<true/>
 		<key>RefreshInterval</key>
@@ -328,7 +328,7 @@
 		<key>FontSize</key>
 		<real>18</real>
 		<key>GeekletFrame</key>
-		<string>{{150, 540}, {260, 48}}</string>
+		<string>{{160, 640}, {280, 52}}</string>
 		<key>HasShadow</key>
 		<true/>
 		<key>RefreshInterval</key>
