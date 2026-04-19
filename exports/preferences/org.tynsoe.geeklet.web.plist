@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>0F826EB4-72D2-4B4E-AC57-E2592C7C13F9</key>
+	<dict>
+		<key>DisplayID</key>
+		<integer>1</integer>
+		<key>GeekletFrame</key>
+		<string>{{540, 250.12109375}, {400, 500}}</string>
+		<key>HasShadow</key>
+		<false/>
+		<key>PinToSpace</key>
+		<true/>
+		<key>URL</key>
+		<string>file:///Users/jagashira/.local/bin/geeklets/clock.html</string>
+		<key>WebGeekletType</key>
+		<integer>0</integer>
+		<key>Zoom</key>
+		<real>1</real>
+	</dict>
+	<key>2A0B6511-1AAF-4AA8-9980-AD7891C7EEF5</key>
+	<dict>
+		<key>DisplayID</key>
+		<integer>1</integer>
+		<key>GeekletFrame</key>
+		<string>{{1062.68359375, 249.125}, {324, 318}}</string>
+		<key>HasShadow</key>
+		<false/>
+		<key>URL</key>
+		<string>file:///Users/jagashira/.local/bin/geeklets/calendar.html</string>
+		<key>WebGeekletType</key>
+		<integer>0</integer>
+		<key>Zoom</key>
+		<real>1.3938802083333333</real>
+	</dict>
+	<key>FF1F9C4A-427E-4BDC-836F-C1D2044ADEEA</key>
+	<dict>
+		<key>GeekletFrame</key>
+		<string>{{0, 0}, {0, 0}}</string>
+	</dict>
+</dict>
+</plist>

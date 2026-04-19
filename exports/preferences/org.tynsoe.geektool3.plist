@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DM_SID</key>
+	<string>48ECC862-C408-4AFD-ACED-788BECA7ABCB</string>
+	<key>DevMateLaunchCount</key>
+	<integer>28</integer>
+	<key>FrameConversionDone</key>
+	<true/>
+	<key>GeekletOrder</key>
+	<array>
+		<string>2A0B6511-1AAF-4AA8-9980-AD7891C7EEF5</string>
+		<string>06924670-8B49-4021-A02F-799867EC3750</string>
+		<string>6E505BA2-87BE-46EE-B533-C3B72663392A</string>
+		<string>0F826EB4-72D2-4B4E-AC57-E2592C7C13F9</string>
+		<string>139CDC0D-091A-456D-B9A3-2AF79EEA89F1</string>
+		<string>0F3B6932-6E27-45AA-9AC8-EE7C9748860B</string>
+		<string>C8D93E8D-9D69-4C18-B33E-0F21BD7C811A</string>
+		<string>2D054937-B04F-4EB2-AE03-7AB9D0852493</string>
+		<string>FD2A02F5-42C5-41C6-BD3D-C8D6A05CE344</string>
+		<string>79E8BA3C-D078-47E4-90B8-83B26EA8F877</string>
+		<string>43B2042F-3244-429C-BBB9-04F95711D92D</string>
+		<string>6094D03B-6A37-44AA-9D88-0E9569B5B2A5</string>
+		<string>22F5855D-B0E2-4873-88F9-881095BBA391</string>
+		<string>FF1F9C4A-427E-4BDC-836F-C1D2044ADEEA</string>
+	</array>
+	<key>Groups</key>
+	<array>
+		<dict>
+			<key>GroupContent</key>
+			<array>
+				<string>0F826EB4-72D2-4B4E-AC57-E2592C7C13F9</string>
+				<string>6E505BA2-87BE-46EE-B533-C3B72663392A</string>
+				<string>06924670-8B49-4021-A02F-799867EC3750</string>
+			</array>
+			<key>GroupEnabled</key>
+			<true/>
+			<key>GroupName</key>
+			<string>clock</string>
+		</dict>
+		<dict>
+			<key>GroupContent</key>
+			<array>
+				<string>FD2A02F5-42C5-41C6-BD3D-C8D6A05CE344</string>
+				<string>79E8BA3C-D078-47E4-90B8-83B26EA8F877</string>
+				<string>C8D93E8D-9D69-4C18-B33E-0F21BD7C811A</string>
+				<string>22F5855D-B0E2-4873-88F9-881095BBA391</string>
+			</array>
+			<key>GroupEnabled</key>
+			<false/>
+			<key>GroupName</key>
+			<string>Default Group</string>
+		</dict>
+		<dict>
+			<key>GroupContent</key>
+			<array>
+				<string>2A0B6511-1AAF-4AA8-9980-AD7891C7EEF5</string>
+			</array>
+			<key>GroupEnabled</key>
+			<true/>
+			<key>GroupName</key>
+			<string>sys</string>
+		</dict>
+	</array>
+	<key>NSColorPanelMode</key>
+	<string>5</string>
+	<key>NSColorPickerPreferredRGBEntryMode</key>
+	<integer>2</integer>
+	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{800, 448}</string>
+	<key>NSOSPLastRootDirectory</key>
+	<data>
+	Ym9va/ACAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAyAEA
+	AAQAAAADAwAAAAQAAAUAAAABAQAAVXNlcnMAAAAJAAAAAQEAAGphZ2FzaGlyYQAAAAkA
+	AAABAQAARG9jdW1lbnRzAAAADAAAAAEGAAAQAAAAIAAAADQAAAAIAAAABAMAAGNCAAAA
+	AAAACAAAAAQDAACMcwAAAAAAAAgAAAAEAwAAvnMAAAAAAAAMAAAAAQYAAFwAAABsAAAA
+	fAAAAAgAAAAABAAAQcYvyAaAAAAYAAAAAQIAAAIAAAAAAAAAHwIAAAAAAAAfAgAAAAAA
+	AAAAAAABBQAACAAAAAQDAAABAAAAAAAAAAQAAAADAwAA9QEAAAgAAAABCQAAZmlsZTov
+	Ly8MAAAAAQEAAE1hY2ludG9zaCBIRAgAAAAEAwAAAACHETkAAAAIAAAAAAQAAEHHKISG
+	gAAAJAAAAAEBAAAyRURCNTVFNi1ENDI0LTRBMDYtODU3OC02MTE0QkIyMkI2MzgYAAAA
+	AQIAAIEAAAABAAAA7xMAAAEAAADvEwAAAQAAAAEAAAABAQAALwAAADAAAAABAgAAZG5p
+	YgAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAc2NvZAIAAAAAAAAA8AAAAP7/
+	//8BAAAAAAAAABMAAAAEEAAASAAAAAAAAAAFEAAAjAAAAAAAAAAQEAAAsAAAAAAAAABA
+	EAAAoAAAAAAAAAACIAAAhAEAAAAAAAAFIAAA9AAAAAAAAAAQIAAABAEAAAAAAAARIAAA
+	OAEAAAAAAAASIAAAGAEAAAAAAAATIAAAKAEAAAAAAAAgIAAAZAEAAAAAAAAwIAAA0AAA
+	AAAAAAABwAAA2AAAAAAAAAARwAAAIAAAAAAAAAASwAAA6AAAAAAAAAAB0AAA0AAAAAAA
+	AAAQ0AAABAAAAAAAAAAX8AAANAAAAAAAAAAi8AAAkAEAAAAAAAA=
+	</data>
+	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
+	<array>
+		<string>0.000000, 0.000000, 224.000000, 258.000000, NO, NO</string>
+		<string>0.000000, 259.000000, 224.000000, 48.000000, NO, NO</string>
+	</array>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame NSColorPanel</key>
+	<string>521 155 224 278 0 0 1470 919 </string>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>955 176 445 235 0 0 1470 919 </string>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>520 542 430 219 0 0 1470 919 </string>
+	<key>PropertiesOrigin</key>
+	<string>{982, 449}</string>
+	<key>ShowInMenuBar</key>
+	<false/>
+	<key>dm_is_install</key>
+	<integer>1</integer>
+</dict>
+</plist>

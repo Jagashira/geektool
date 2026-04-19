@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DM_SID</key>
+	<string>AF12166C-732A-418C-800D-3F9C2233A101</string>
+	<key>DevMateLaunchCount</key>
+	<integer>11</integer>
+	<key>HelperShouldRelaunch</key>
+	<false/>
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SULastCheckTime</key>
+	<date>2025-08-28T05:15:32Z</date>
+	<key>dm_is_install</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Clock</title>
+<style>
+  :root{
+    /* ===== 配色（白ベース） ===== */
+    --fg:        #ffffff;              /* デジタル文字の主色（白） */
+    --fg-dim:    rgba(255,255,255,.70);/* 補助文字 */
+    --accent:    #ffffff;              /* 針／目盛りのベース色（白） */
+
+    /* コントラスト向上用（暗い縁取り & グロー） */
+    --stroke:    rgba(0,0,0,.35);      /* 文字・針の薄い縁取り */
+    --glow:      0 0 12px rgba(255,255,255,.25), 0 0 24px rgba(255,255,255,.12);
+
+    /* 盤面の半透明プレート（雲や明部での視認性アップ） */
+    --plate:     rgba(0,0,0,.18);      /* 濃い→ .22 / 薄い→ .10 など */
+    --plate-stk: rgba(255,255,255,.10);
+
+    /* サイズ／フォント */
+    --size:      360px;                /* 文字盤サイズ（CSSピクセル） */
+    --font: "JetBrainsMono Nerd Font", Menlo, monospace;
+  }
+  html,body{margin:0;padding:0;background:transparent;color:var(--fg);font-family:var(--font);}
+  .wrap{
+    width:var(--size);
+    height:calc(var(--size) + 96px);
+    display:flex;flex-direction:column;align-items:center
+  }
+  canvas{width:var(--size);height:var(--size);}
+  .digital{
+    margin-top:12px;letter-spacing:.04em;text-align:center;
+    /* 白文字を明部でも読ませる：暗い縁取り＋淡いグロー */
+    text-shadow:
+      0 0 1px var(--stroke),
+      0 0 2px var(--stroke),
+      var(--glow);
+  }
+  .time{font-size:28px;font-weight:800}
+  .date{font-size:14px;color:var(--fg-dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <canvas id="dial" width="400" height="400"></canvas>
+  <div class="digital">
+    <div id="time" class="time">--:--:--</div>
+    <div id="date" class="date">----</div>
+  </div>
+</div>
+
+<script>
+/* === 表示オプション ===
+ * デジタル：24時間表示（true固定）
+ * TIMEZONE：null ならシステムのタイムゾーン。例 "Asia/Tokyo"
+ * MINUTE_OFFSET：微妙なズレ補正（分単位）
+ * SHOW_PLATE：半透明の円盤プレートで背景の明部でも視認性を確保
+ */
+const TWENTY_FOUR_HOUR = true;
+const TIMEZONE = null;
+const MINUTE_OFFSET = 0;
+const SHOW_PLATE = true;
+
+(function () {
+  const canvas = document.getElementById('dial');
+  const root = document.querySelector(':root');
+  const cssSize = parseInt(getComputedStyle(root).getPropertyValue('--size'));
+  const dpr = window.devicePixelRatio || 1;
+
+  // Retina対応
+  canvas.width  = Math.round(cssSize * dpr);
+  canvas.height = Math.round(cssSize * dpr);
+  canvas.style.width  = cssSize + 'px';
+  canvas.style.height = cssSize + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const cx = cssSize/2, cy = cssSize/2;
+  const r  = Math.min(cx, cy) - 8;
+
+  function nowFixed(){
+    const base = new Date();
+    if (!TIMEZONE){
+      return new Date(base.getTime() + MINUTE_OFFSET*60*1000);
+    }
+    const fmt = new Intl.DateTimeFormat('en-CA', {
+      timeZone: TIMEZONE,
+      year:'numeric', month:'2-digit', day:'2-digit',
+      hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false
+    });
+    const parts = Object.fromEntries(fmt.formatToParts(base).map(p=>[p.type,p.value]));
+    const s = `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}Z`;
+    return new Date(new Date(s).getTime() + MINUTE_OFFSET*60*1000);
+  }
+
+  function drawDial() {
+    ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
+
+    // 半透明プレート（背景が雲・明部でも見えるように）
+    if (SHOW_PLATE){
+      ctx.save();
+      const grd = ctx.createRadialGradient(cx,cy,r*0.2, cx,cy,r);
+      grd.addColorStop(0, 'rgba(0,0,0,0.28)');
+      grd.addColorStop(1, getComputedStyle(root).getPropertyValue('--plate'));
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+      // ごく薄い白ストロークで締める
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = getComputedStyle(root).getPropertyValue('--plate-stk');
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 外周リング（白＋薄い影）
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+    ctx.lineWidth = 2;
+    ctx.shadowColor = 'rgba(0,0,0,0.35)';
+    ctx.shadowBlur = 6;
+    ctx.stroke();
+    ctx.restore();
+
+    // 目盛り（5分ごと太め／他は細め）＋黒縁
+    for (let i=0;i<60;i++){
+      const angle = (Math.PI/30)*i - Math.PI/2; // 12時基準
+      const len = (i%5===0)? 12 : 6;
+      const w =  (i%5===0)? 2  : 1;
+      const x1 = cx + Math.cos(angle)*(r-len);
+      const y1 = cy + Math.sin(angle)*(r-len);
+      const x2 = cx + Math.cos(angle)*(r-2);
+      const y2 = cy + Math.sin(angle)*(r-2);
+
+      // 薄い黒縁（アウトライン）
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+      ctx.strokeStyle = 'rgba(0,0,0,0.45)';
+      ctx.lineWidth = w + 1.2;
+      ctx.stroke();
+      ctx.restore();
+
+      // 本体（白）
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+      ctx.strokeStyle = (i%5===0)? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.80)';
+      ctx.lineWidth = w;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function hand(angle, len, width, color, glow=8) {
+    // 黒の細アウトライン → 本体白 → ほんの少しグロー
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+
+    // アウトライン
+    ctx.beginPath();
+    ctx.moveTo(-4,0); ctx.lineTo(len,0);
+    ctx.strokeStyle = getComputedStyle(root).getPropertyValue('--stroke');
+    ctx.lineWidth = width + 1.6;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // 本体
+    ctx.beginPath();
+    ctx.moveTo(-4,0); ctx.lineTo(len,0);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.lineCap = 'round';
+    ctx.shadowColor = 'rgba(255,255,255,0.25)';
+    ctx.shadowBlur = glow;
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function tick(){
+    const now = nowFixed();
+
+    drawDial();
+
+    // アナログ（12時間制）＋ 12時基準に -90°補正
+    const ms  = now.getMilliseconds();
+    const sec = now.getSeconds() + ms/1000;
+    const min = now.getMinutes() + sec/60;
+    const hr  = (now.getHours() % 12) + min/60;
+
+    const aSec = (sec / 60) * 2*Math.PI - Math.PI/2;
+    const aMin = (min / 60) * 2*Math.PI - Math.PI/2;
+    const aHr  = (hr  / 12) * 2*Math.PI - Math.PI/2;
+
+    // 針（時=太・短、分=中、秒=細・長）
+    hand(aHr,  r*0.56, 4.6, 'rgba(255,255,255,0.98)', 10);
+    hand(aMin, r*0.80, 3.2, 'rgba(255,255,255,0.96)', 12);
+    hand(aSec, r*0.86, 1.6, 'rgba(255,255,255,0.85)', 10);
+
+    // センターキャップ（白＋黒縁）
+    ctx.beginPath();
+    ctx.arc(cx,cy,3.2,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,0.96)';
+    ctx.strokeStyle='rgba(0,0,0,0.45)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+    ctx.fill();
+
+    // デジタル（24h）
+    const pad = n => n.toString().padStart(2,'0');
+    const hour = now.getHours();
+    const hh = TWENTY_FOUR_HOUR ? pad(hour) : pad((hour%12)||12);
+    const mm = pad(now.getMinutes()), ss = pad(now.getSeconds());
+    document.getElementById('time').textContent = `${hh}:${mm}:${ss}`;
+
+    const wds = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const y = now.getFullYear(), m = pad(now.getMonth()+1), d = pad(now.getDate());
+    document.getElementById('date').textContent = `${y}-${m}-${d}  ${wds[now.getDay()]}`;
+  }
+
+  (function loop(){ tick(); requestAnimationFrame(loop); })();
+})();
+</script>
+</body>
+</html>

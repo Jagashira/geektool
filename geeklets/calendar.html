@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  body {
+    margin:0; padding:0;
+    background: transparent;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+  }
+  h2 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+  }
+  table { border-collapse: collapse; margin:auto; }
+  th { color:#aaa; font-weight:400; padding:2px 6px; }
+  td {
+    width: 22px; height: 22px;
+    padding:2px;
+  }
+  td.today {
+    background:#fff;
+    color:#000;
+    border-radius:4px;
+    font-weight:bold;
+  }
+</style>
+</head>
+<body>
+<script>
+(function(){
+  const now=new Date();
+  const y=now.getFullYear(), m=now.getMonth();
+  const first=new Date(y,m,1).getDay();
+  const days=new Date(y,m+1,0).getDate();
+  const wd=["Su","Mo","Tu","We","Th","Fr","Sa"];
+
+  // 年月ヘッダー
+  document.write(`<h2>${y} ${m+1}</h2>`);
+
+  // カレンダー
+  let html=`<table><tr>`;
+  wd.forEach(d=>{html+=`<th>${d}</th>`});
+  html+="</tr><tr>";
+  for(let i=0;i<first;i++) html+="<td></td>";
+  for(let d=1;d<=days;d++){
+    const w=(first+d-1)%7;
+    const cls=(d===now.getDate())?"today":"";
+    html+=`<td class="${cls}">${d}</td>`;
+    if(w===6) html+="</tr><tr>";
+  }
+  html+="</tr></table>";
+  document.write(html);
+})();
+</script>
+</body>
+</html>
