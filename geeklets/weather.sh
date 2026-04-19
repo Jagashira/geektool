@@ -1,10 +1,21 @@
 #!/usr/bin/env zsh
-# 例: 東京 35.68, 139.76 に変更してね
+set -euo pipefail
+
 LAT="${WEATHER_LAT:-35.930807}"
 LON="${WEATHER_LON:-139.890211}"
 url="https://api.open-meteo.com/v1/forecast?latitude=$LAT&longitude=$LON&current=temperature_2m,relative_humidity_2m,weather_code&timezone=auto"
-json=$(curl -m 3 -s "$url")
-[ -z "$json" ] && { echo "Weather  -"; exit 0; }
+
+if ! command -v curl >/dev/null 2>&1 || ! command -v jq >/dev/null 2>&1; then
+  printf "%s\n" "--  --.-C  --%"
+  exit 0
+fi
+
+json=$(curl -m 3 -fsS "$url" 2>/dev/null || true)
+[[ -n "$json" ]] || {
+  printf "%s\n" "--  --.-C  --%"
+  exit 0
+}
+
 temp=$(echo "$json" | jq -r '.current.temperature_2m // empty')
 hum=$( echo "$json" | jq -r '.current.relative_humidity_2m // empty')
 code=$(echo "$json" | jq -r '.current.weather_code // empty')

@@ -9,7 +9,7 @@
 		<key>DisplayID</key>
 		<integer>1</integer>
 		<key>DropShadow</key>
-		<false/>
+		<true/>
 		<key>FailureImage</key>
 		<data>
 		TU0AKgAABAj///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAAGgAAACAA
@@ -56,13 +56,13 @@
 		DQAAVDkAAdF0AAHRdAAB0XQAAAAAAAAAAA==
 		</data>
 		<key>FontFamily</key>
-		<string>LucidaGrande</string>
+		<string>JetBrainsMonoNF-Regular</string>
 		<key>FontSize</key>
-		<real>18</real>
+		<real>14</real>
 		<key>GeekletFrame</key>
-		<string>{{124, 250}, {250, 246}}</string>
+		<string>{{150, 250}, {320, 250}}</string>
 		<key>HasShadow</key>
-		<false/>
+		<true/>
 		<key>RefreshInterval</key>
 		<integer>30</integer>
 		<key>SetLocale</key>
