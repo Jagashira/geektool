@@ -60,7 +60,7 @@
 		<key>FontSize</key>
 		<real>14</real>
 		<key>GeekletFrame</key>
-		<string>{{150, 250}, {320, 250}}</string>
+		<string>{{160, 250}, {430, 355}}</string>
 		<key>HasShadow</key>
 		<true/>
 		<key>RefreshInterval</key>
@@ -277,7 +277,7 @@
 		<key>DisplayID</key>
 		<integer>1</integer>
 		<key>DropShadow</key>
-		<false/>
+		<true/>
 		<key>FailureImage</key>
 		<data>
 		TU0AKgAABAj///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAAGgAAACAA
@@ -328,9 +328,9 @@
 		<key>FontSize</key>
 		<real>18</real>
 		<key>GeekletFrame</key>
-		<string>{{125, 540}, {245.04296875, 45}}</string>
+		<string>{{150, 540}, {260, 48}}</string>
 		<key>HasShadow</key>
-		<false/>
+		<true/>
 		<key>RefreshInterval</key>
 		<integer>1</integer>
 		<key>SetLocale</key>

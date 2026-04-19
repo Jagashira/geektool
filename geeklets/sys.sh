@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
 command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
@@ -110,14 +112,30 @@ esac
 root_used="-"
 root_total="-"
 root_used_pct="-"
-root_left_pct="-"
-if root_line=$(df -h / 2>/dev/null | awk 'NR==2{print $3 "|" $2 "|" $5}'); then
-  root_used=$(normalize_size "${root_line%%|*}")
-  root_rest=${root_line#*|}
-  root_total=$(normalize_size "${root_rest%%|*}")
-  root_used_pct=${root_line##*|}
-  if [[ "$root_used_pct" =~ ^([0-9]+)%$ ]]; then
-    root_left_pct="$((100 - ${match[1]}))%"
+if command_exists diskutil; then
+  disk_info=$(diskutil info /System/Volumes/Data 2>/dev/null || true)
+  if [[ -n "$disk_info" ]]; then
+    root_used=$(echo "$disk_info" | awk -F': *' '/Volume Used Space/ {print $2; exit}' | sed -E 's/^([0-9.]+) ([KMGTP])B.*/\1\2/')
+    root_total=$(echo "$disk_info" | awk -F': *' '/Container Total Space/ {print $2; exit}' | sed -E 's/^([0-9.]+) ([KMGTP])B.*/\1\2/')
+    root_used_bytes=$(echo "$disk_info" | awk -F'[()]' '/Volume Used Space/ {print $2; exit}' | awk '{print $1}')
+    root_total_bytes=$(echo "$disk_info" | awk -F'[()]' '/Container Total Space/ {print $2; exit}' | awk '{print $1}')
+    root_used=$(normalize_size "${root_used:-"-"}")
+    root_total=$(normalize_size "${root_total:-"-"}")
+    if [[ -n "${root_used_bytes:-}" && -n "${root_total_bytes:-}" ]]; then
+      root_used_pct=$(awk -v used="$root_used_bytes" -v total="$root_total_bytes" 'BEGIN {
+        if (total > 0) printf "%d%%", (used / total) * 100 + 0.5;
+        else print "-";
+      }')
+    fi
+  fi
+fi
+
+if [[ "$root_used" == "-" || "$root_total" == "-" || "$root_used_pct" == "-" || -z "$root_used_pct" ]]; then
+  if root_line=$(df -h /System/Volumes/Data 2>/dev/null | awk 'NR==2{print $3 "|" $2 "|" $5}'); then
+    root_used=$(normalize_size "${root_line%%|*}")
+    root_rest=${root_line#*|}
+    root_total=$(normalize_size "${root_rest%%|*}")
+    root_used_pct=${root_line##*|}
   fi
 fi
 vsize=$(test -d "$HOME/vault" && du -sh "$HOME/vault" 2>/dev/null | awk '{print $1}' || echo "-")
@@ -173,13 +191,11 @@ printf "%-4s %6s%%\n" "CPU" "$cpu"
 printf "%-4s %6s%%\n" "RAM" "$ram"
 echo
 printf "%-4s %s %s\n" "BAT" "$bicon" "${pct}%"
-printf "%-4s %-12s\n" "NET" "${ssid:0:12}"
 echo
-printf "%-4s %s / %s\n" "ROOT" "$root_used" "$root_total"
-printf "%-4s %s\n" "FREE" "$root_left_pct"
+printf "%-5s %s/%s (%s)\n" "DISK" "$root_used" "$root_total" "$root_used_pct"
 echo
-printf "%-4s %4s\n" "VLT" "$vsize"
-printf "%-4s %4s\n" "WRK" "$wsize"
+printf "%-5s %4s\n" "VAULT" "$vsize"
+printf "%-5s %4s\n" "WORK" "$wsize"
 echo
 printf "%-4s %s\n" "LAN" "$(compact_ip "$lan")"
 printf "%-4s %s\n" "WAN" "$(compact_ip "$wan")"
