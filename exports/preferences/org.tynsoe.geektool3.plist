@@ -5,7 +5,7 @@
 	<key>DM_SID</key>
 	<string>48ECC862-C408-4AFD-ACED-788BECA7ABCB</string>
 	<key>DevMateLaunchCount</key>
-	<integer>28</integer>
+	<integer>32</integer>
 	<key>FrameConversionDone</key>
 	<true/>
 	<key>GeekletOrder</key>
@@ -104,7 +104,7 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>520 542 430 219 0 0 1470 919 </string>
 	<key>PropertiesOrigin</key>
-	<string>{982, 449}</string>
+	<string>{862, 429}</string>
 	<key>ShowInMenuBar</key>
 	<false/>
 	<key>dm_is_install</key>
