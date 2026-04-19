@@ -58,9 +58,9 @@
 		<key>FontFamily</key>
 		<string>JetBrainsMonoNF-Regular</string>
 		<key>FontSize</key>
-		<real>14</real>
+		<real>20</real>
 		<key>GeekletFrame</key>
-		<string>{{160, 250}, {500, 355}}</string>
+		<string>{{140, 235}, {760, 520}}</string>
 		<key>HasShadow</key>
 		<true/>
 		<key>RefreshInterval</key>
@@ -326,9 +326,9 @@
 		<key>FontFamily</key>
 		<string>JetBrainsMonoNF-Regular</string>
 		<key>FontSize</key>
-		<real>18</real>
+		<real>20</real>
 		<key>GeekletFrame</key>
-		<string>{{160, 640}, {280, 52}}</string>
+		<string>{{145, 760}, {360, 72}}</string>
 		<key>HasShadow</key>
 		<true/>
 		<key>RefreshInterval</key>
